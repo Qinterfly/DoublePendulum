@@ -1,0 +1,7 @@
+archive/
+debug/
+release/
+exec/
+*.txt
+*.png
+DoublePendulum.pro.*

@@ -12,7 +12,7 @@ void MainWindow::solve(){
 // Запуск общей процедуры расчета
 void MainWindow::calculate(){
     solve(); // Решить ДУ с заданными условиями
-    playBackTimer->start(5); // Запуск таймера
+    playBackTimer_->start(); // Запуск таймера (h * 1e3)
     ui->pushButtonCalculate->setEnabled(false); // Отключение кнопки начала расчета
 }
 
@@ -27,7 +27,7 @@ void MainWindow::pauseOrContinue(){
 
 // Остановка
 void MainWindow::stop(){
-    playBackTimer->stop(); // Остановка тайемера
+    playBackTimer_->stop(); // Остановка тайемера
     timeInd_ = 0; // Сброс индекса решения
     time_.clear(); // Очистка вектора времени
     solution_.clear(); // Очистка вектора решения
@@ -46,5 +46,5 @@ void MainWindow::playBackStep(){
         ++timeInd_;
     }
     else
-        playBackTimer->stop(); // Остановка таймера
+        playBackTimer_->stop(); // Остановка таймера
 }

@@ -11,13 +11,38 @@ void MainWindow::initializeSolutionOptions(){
     setTimeStep();  // Шаг по времен
 }
 
+// Инициализация параметров построения
+void MainWindow::initializeShowParams(){
+    playBackTimer_ = new QTimer(this); // Таймер
+    // Интервал срабатывания таймера
+        // Текстовая метка
+    labelTimeInterval_ = new QLabel();
+    labelTimeInterval_->setText("Интервал таймера: ");
+    ui->statusBar->addPermanentWidget(labelTimeInterval_);
+        // Полоса прокрутки
+    scrollBarTimerInterval_ = new QScrollBar(Qt::Horizontal);
+    scrollBarTimerInterval_->setMinimum(0); // Минимальное значение
+    scrollBarTimerInterval_->setMaximum(128); // Максимальное значение
+    scrollBarTimerInterval_->setValue(4); // Текущее значение
+    scrollBarTimerInterval_->setMinimumWidth(180); // Минимальная ширина
+    ui->statusBar->addPermanentWidget(scrollBarTimerInterval_); // Добавление в информационную строку
+    setTimerInterval(); // Установка интервала таймера
+    // Временной след
+    setTraceLength(); // Выставление длины временного следа
+    listTrace_.resize(2); // След для двух точек
+}
+
 // Инициализация всех графических окон
 void MainWindow::initializeAllPlot(){
-    playBackTimer = new QTimer(this); // Таймер
     // -- PlotPendulum --
-    ui->plotPendulum->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom); // Установить пользовательские взаимодействия (перетаскивание + масштабирование)
-    listTrace_.resize(2); // След для двух точек
+    initializePlotPendulum(); // Графическое окно с маятником
+    updateInitPendulum(); // Обновление начального положения маятника
+}
+
+// Инициализация окна с маятником
+void MainWindow::initializePlotPendulum(){
     for (int i = 0; i != 6; ++i) ui->plotPendulum->addGraph(); // Добавление графиков для 2ух-стержней и 2ух-точек со следами
+    ui->plotPendulum->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom); // Установить пользовательские взаимодействия (перетаскивание + масштабирование)
     // Первый стержень
     QPen rodPen;
     rodPen.setStyle(Qt::SolidLine); // Тип линии
@@ -53,6 +78,4 @@ void MainWindow::initializeAllPlot(){
     traceScatterStyle.setBrush(QColor(Qt::blue)); // Цвет заливки
     ui->plotPendulum->graph(5)->setLineStyle(QCPGraph::lsNone); // Тип линии графика
     ui->plotPendulum->graph(5)->setScatterStyle(traceScatterStyle); // Тип точки графика
-    // Обновление начального положения маятника
-    updateInitPendulum();
 }

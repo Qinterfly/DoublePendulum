@@ -18,7 +18,7 @@ void MainWindow::plotPendulum(std::vector<state_type> const& solution, size_t pl
     ui->plotPendulum->graph(3)->setData({pointCartCoord[2]}, {pointCartCoord[3]}); // Передача данных
     // Следы точек
     if (!ui->pushButtonCalculate->isEnabled()){ // Если отрисовка идет
-        if (plotInd >= TRACE_LENGTH){ // Удаление первых элементов, если след достиг целевой длины
+        if (plotInd >= traceLength_){ // Удаление первых элементов, если след достиг целевой длины
             listTrace_[0].pop_front(); // Первая точка
             listTrace_[1].pop_front(); // Вторая точка
         }

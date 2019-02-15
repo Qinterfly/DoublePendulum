@@ -26,15 +26,19 @@ public slots:
     void playBackStep(); // Функция отрисовки по таймеру
     void updateInitPendulum(); // Обновление начального положения маятника
     // Set методы
-    void setMass();      // Массы
-    void setLength();    // Длины
-    void setGravity();   // Гравитация
-    void setInitCond();  // Начальное условие
-    void setTimeBound(); // Интервал интегрирования
-    void setTimeStep();  // Шаг по времени
+    void setMass();          // Массы
+    void setLength();        // Длины
+    void setGravity();       // Гравитация
+    void setInitCond();      // Начальное условие
+    void setTimeBound();     // Интервал интегрирования
+    void setTimeStep();      // Шаг по времени
+    void setTraceLength();   // Длина временного следа
+    void setTimerInterval(); // Интервал срабатывания таймера
 private:
     void initializeSolutionOptions(); // Инициализация параметров решения
+    void initializeShowParams(); // Инициализация параметров построения
     void initializeAllPlot(); // Инициализация всех графических окон
+    void initializePlotPendulum(); // Инициализация окна с маятником
     void solve(); // Решить ДУ с заданными условиями
     void plotPendulum(std::vector<state_type> const& solution, size_t plotInd); // Построение положения маятника
     void clearPendulum(); // Очистка положения маятника
@@ -47,10 +51,12 @@ private:
     std::vector<double> time_; // Вектор времени
     size_t nTime_; // Число шагов по времени, включая начальный момент
     // Анимация
-    QTimer* playBackTimer; // Таймер
+    QTimer* playBackTimer_; // Таймер
+    QScrollBar* scrollBarTimerInterval_; // Интервал срабатывания таймера
+    QLabel* labelTimeInterval_; // Метка интервала срабатывания
     bool isPaused_ = false; // Флаг паузы
     size_t timeInd_ = 0; // Индекс решения
-    const int TRACE_LENGTH = 150; // Длина следа
+    size_t traceLength_; // Длина временного следа
     TraceContainer listTrace_; // Контейнер следов точек
 };
 

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     initializeSolutionOptions(); // Инициализация параметров решения
+    initializeShowParams(); // Инициализация параметров построения
     initializeAllPlot(); // Инициализация всех графических окон
 
     // Сигналы - слоты
@@ -27,14 +28,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->doubleSpinBoxInitVelocity2, SIGNAL(editingFinished()), this, SLOT(setInitCond()));
     // Параметры решения
         // Время решения
-    connect(ui->doubleSpinBoxInitTime, SIGNAL(editingFinished()), this, SLOT(setTimeBound()));
-    connect(ui->doubleSpinBoxEndTime, SIGNAL(editingFinished()), this, SLOT(setTimeBound()));
-    connect(ui->doubleSpinBoxTimeStep, SIGNAL(editingFinished()), this, SLOT(setTimeStep()));
+    connect(ui->doubleSpinBoxInitTime, SIGNAL(editingFinished()), this, SLOT(setTimeBound())); // Начальное время моделирования
+    connect(ui->doubleSpinBoxEndTime, SIGNAL(editingFinished()), this, SLOT(setTimeBound()));  // Конечное время моделирования
+    connect(ui->doubleSpinBoxTimeStep, SIGNAL(editingFinished()), this, SLOT(setTimeStep()));  // Временной шаг
+    connect(ui->spinBoxTraceLength, SIGNAL(editingFinished()), this, SLOT(setTraceLength()));  // Длина временного следа
     // Контроль
-    connect(playBackTimer, SIGNAL(timeout()), this, SLOT(playBackStep())); // Таймер
+    connect(playBackTimer_, SIGNAL(timeout()), this, SLOT(playBackStep())); // Таймер
     connect(ui->pushButtonCalculate, SIGNAL(clicked()), this, SLOT(calculate())); // Запуск расчета
     connect(ui->pushButtonPauseOrContinue, SIGNAL(clicked()), this, SLOT(pauseOrContinue())); // Пауза или возобновление
     connect(ui->pushButtonStop, SIGNAL(clicked()), this, SLOT(stop())); // Остановка
+    connect(scrollBarTimerInterval_, SIGNAL(valueChanged(int)), this, SLOT(setTimerInterval())); // Установка интервала таймера
     // Обновление положения маятника
         // Длины
     connect(ui->doubleSpinBoxLength1, SIGNAL(valueChanged(double)), this, SLOT(updateInitPendulum()));

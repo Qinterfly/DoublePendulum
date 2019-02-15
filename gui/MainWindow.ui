@@ -22,6 +22,9 @@
         <pointsize>10</pointsize>
        </font>
       </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
       <widget class="QWidget" name="tabPendulum">
        <attribute name="title">
         <string>Маятник</string>
@@ -54,6 +57,23 @@
        <attribute name="title">
         <string>Портрет</string>
        </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QCustomPlot" name="plotPhasePortrait" native="true"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -551,6 +571,9 @@
           <property name="stepType">
            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
+          <property name="value">
+           <double>3.100000000000000</double>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
@@ -570,7 +593,7 @@
            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
           <property name="value">
-           <double>0.790000000000000</double>
+           <double>1.600000000000000</double>
           </property>
          </widget>
         </item>
@@ -782,6 +805,9 @@
           <property name="minimum">
            <double>0.010000000000000</double>
           </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
           <property name="stepType">
            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
@@ -840,6 +866,42 @@
           </property>
           <property name="value">
            <double>0.005000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="labelTraceLength">
+          <property name="text">
+           <string>tr = </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="4">
+         <widget class="QSpinBox" name="spinBoxTraceLength">
+          <property name="toolTip">
+           <string>Длина временного следа</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>100000</number>
+          </property>
+          <property name="value">
+           <number>128</number>
           </property>
          </widget>
         </item>

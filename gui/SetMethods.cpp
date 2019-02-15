@@ -32,3 +32,12 @@ void MainWindow::setTimeStep(){
     solOpt_.setTimeStep(ui->doubleSpinBoxTimeStep->value());
     if (!ui->pushButtonCalculate->isEnabled()) stop(); // Остановка расчета
 }
+
+// Длина временного следа
+void MainWindow::setTraceLength(){
+    traceLength_ = size_t(ui->spinBoxTraceLength->value());
+    if (!ui->pushButtonCalculate->isEnabled()) stop(); // Остановка расчета
+}
+
+// Интервал срабатывания таймера
+void MainWindow::setTimerInterval(){ playBackTimer_->setInterval(scrollBarTimerInterval_->value()); }

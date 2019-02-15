@@ -1,0 +1,2 @@
+# DoublePendulum
+![](resource/sample.gif)

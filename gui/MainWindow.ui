@@ -192,6 +192,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Величина первой точечной массы</string>
+          </property>
           <property name="minimum">
            <double>0.010000000000000</double>
           </property>
@@ -221,6 +224,9 @@
            <font>
             <italic>false</italic>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Величина второй точечной массы</string>
           </property>
           <property name="minimum">
            <double>0.010000000000000</double>
@@ -324,6 +330,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Длина первого стержня</string>
+          </property>
           <property name="minimum">
            <double>0.010000000000000</double>
           </property>
@@ -341,6 +350,9 @@
            <font>
             <italic>false</italic>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Длина второго стержня</string>
           </property>
           <property name="minimum">
            <double>0.010000000000000</double>
@@ -424,6 +436,9 @@
            <font>
             <italic>false</italic>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Ускорение свободного падения</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -562,6 +577,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Угол отклонения второго стержня</string>
+          </property>
           <property name="minimum">
            <double>-6.280000000000000</double>
           </property>
@@ -582,6 +600,9 @@
            <font>
             <italic>false</italic>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Угол отклонения первого стержня</string>
           </property>
           <property name="minimum">
            <double>-6.280000000000000</double>
@@ -679,6 +700,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Угловая скорость второго стержня</string>
+          </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
           </property>
@@ -696,6 +720,9 @@
            <font>
             <italic>false</italic>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Угловая скорость первого стержня</string>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -802,6 +829,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Конечное время</string>
+          </property>
           <property name="minimum">
            <double>0.010000000000000</double>
           </property>
@@ -812,7 +842,7 @@
            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
           <property name="value">
-           <double>15.000000000000000</double>
+           <double>30.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -836,6 +866,9 @@
             <italic>false</italic>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Начальное время</string>
+          </property>
           <property name="stepType">
            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
@@ -854,6 +887,9 @@
            <font>
             <italic>false</italic>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Временной шаг</string>
           </property>
           <property name="decimals">
            <number>3</number>

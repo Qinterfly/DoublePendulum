@@ -35,9 +35,36 @@ void MainWindow::setTimeStep(){
 
 // Длина временного следа
 void MainWindow::setMaxTraceLength(){
-    maxTraceLength_ = size_t(ui->spinBoxMaxTraceLength->value());
-    if (!ui->pushButtonCalculate->isEnabled()) stop(); // Остановка расчета
+    maxTraceLength_ = ui->spinBoxMaxTraceLength->value();
 }
 
 // Интервал срабатывания таймера
 void MainWindow::setTimerInterval(){ playBackTimer_->setInterval(scrollBarTimerInterval_->value()); }
+
+// Установка границ отображения маятника
+void MainWindow::setPlotPendulumRange(double zoomShift = 1){
+    ui->plotPendulum->rescaleAxes(true);
+    double tLenSum = solOpt_.diffEqu().length()[0] + solOpt_.diffEqu().length()[1]; // Суммарная длина
+    ui->plotPendulum->xAxis->setRange(-tLenSum, tLenSum); // Пределы по оси X
+    ui->plotPendulum->yAxis->setRange(-tLenSum, tLenSum); // Пределы по оси Y
+    ui->plotPendulum->xAxis->scaleRange(zoomShift, ui->plotPendulum->xAxis->range().center()); // Отдалить по оси X
+    ui->plotPendulum->yAxis->scaleRange(zoomShift, ui->plotPendulum->yAxis->range().center()); // Отдалить по оси Y
+}
+
+// Установка границ отображения фазового потрета
+void MainWindow::setPlotPhasePortraitRange(double zoomShift = 1){
+    ui->plotPhasePortrait->rescaleAxes(true);
+    // Нахождение пределов построения
+        // По X
+    double minX = qMin(solutionMinMax_.first[0], solutionMinMax_.first[1]);
+    double maxX = qMax(solutionMinMax_.second[0], solutionMinMax_.second[1]);
+        // По Y
+    double minY = qMin(solutionMinMax_.first[2], solutionMinMax_.first[3]);
+    double maxY = qMax(solutionMinMax_.second[2], solutionMinMax_.second[3]);
+    // Выставление пределов по осям
+    ui->plotPhasePortrait->xAxis->setRange(minX, maxX); // X
+    ui->plotPhasePortrait->yAxis->setRange(minY, maxY); // Y
+    ui->plotPhasePortrait->xAxis->scaleRange(zoomShift, ui->plotPhasePortrait->xAxis->range().center()); // Отдалить по оси X
+    ui->plotPhasePortrait->yAxis->scaleRange(zoomShift, ui->plotPhasePortrait->yAxis->range().center()); // Отдалить по оси Y
+    ui->plotPhasePortrait->replot();
+}

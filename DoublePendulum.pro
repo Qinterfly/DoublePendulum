@@ -33,7 +33,9 @@ SOURCES += \
     gui/SetMethods.cpp \
     gui/InitializeMethods.cpp \
     gui/Calculation.cpp \
-    gui/Plotting.cpp
+    gui/Plotting.cpp \
+    gui/UpdateMethods.cpp \
+    gui/ClearMethods.cpp
 
 HEADERS += \
         gui/MainWindow.h \

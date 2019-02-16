@@ -32,18 +32,24 @@ public slots:
     void setInitCond();      // Начальное условие
     void setTimeBound();     // Интервал интегрирования
     void setTimeStep();      // Шаг по времени
-    void setTraceLength();   // Длина временного следа
+    void setMaxTraceLength();   // Длина временного следа
     void setTimerInterval(); // Интервал срабатывания таймера
 private:
     void initializeSolutionOptions(); // Инициализация параметров решения
     void initializeShowParams(); // Инициализация параметров построения
     void initializeAllPlot(); // Инициализация всех графических окон
     void initializePlotPendulum(); // Инициализация окна с маятником
+    void initializePhasePortrait(); // Инициализация окна с фазовым портретом
     void solve(); // Решить ДУ с заданными условиями
     void plotPendulum(std::vector<state_type> const& solution, size_t plotInd); // Построение положения маятника
+    void plotPhasePortrait(size_t plotInd); // Построение фазового портрета
+    void setPlotPendulumRange(double zoomShift); // Установка границ отображения маятника
+    void setPlotPhasePortraitRange(double zoomShift); // Установка границ отображения фазового потрета
     void clearPendulum(); // Очистка положения маятника
+    void clearPhasePortrait(); // Очистка фазового портрета
     // Вспомогательные
-    QVector<double> sliceTrace(size_t indPoint, size_t indCoord); // Срез следа по индексам
+    void addTraceData(QCPCurve* curve, double const& x, double const& y); // Добавление данных к временному следу
+    void findSolutionMinMax(); // Нахождение максимумов и минимумов решения
 private:
     Ui::MainWindow *ui;
     SolutionOptions solOpt_; // Опции решения
@@ -56,8 +62,10 @@ private:
     QLabel* labelTimeInterval_; // Метка интервала срабатывания
     bool isPaused_ = false; // Флаг паузы
     size_t timeInd_ = 0; // Индекс решения
-    size_t traceLength_; // Длина временного следа
-    TraceContainer listTrace_; // Контейнер следов точек
+    int maxTraceLength_; // Максимальная длина временного следа
+    QVector<QCPCurve *> tracePendulum_; // Временные следы маятника
+    QVector<QCPCurve *> tracePhasePortrait_; // Временные следы на фазовом портрете
+    std::pair<state_type, state_type> solutionMinMax_; // Минимумы и максимумы решения
 };
 
 #endif // MAINWINDOW_H

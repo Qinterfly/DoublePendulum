@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="tabPlotWidget">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -55,7 +55,7 @@
       </widget>
       <widget class="QWidget" name="tabPhasePortrait">
        <attribute name="title">
-        <string>Портрет</string>
+        <string>Фазовый портрет</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <property name="leftMargin">
@@ -865,7 +865,7 @@
            <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
           </property>
           <property name="value">
-           <double>0.005000000000000</double>
+           <double>0.010000000000000</double>
           </property>
          </widget>
         </item>
@@ -890,7 +890,7 @@
          </spacer>
         </item>
         <item row="1" column="4">
-         <widget class="QSpinBox" name="spinBoxTraceLength">
+         <widget class="QSpinBox" name="spinBoxMaxTraceLength">
           <property name="toolTip">
            <string>Длина временного следа</string>
           </property>
@@ -901,7 +901,7 @@
            <number>100000</number>
           </property>
           <property name="value">
-           <number>128</number>
+           <number>512</number>
           </property>
          </widget>
         </item>

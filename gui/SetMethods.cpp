@@ -34,8 +34,8 @@ void MainWindow::setTimeStep(){
 }
 
 // Длина временного следа
-void MainWindow::setTraceLength(){
-    traceLength_ = size_t(ui->spinBoxTraceLength->value());
+void MainWindow::setMaxTraceLength(){
+    maxTraceLength_ = size_t(ui->spinBoxMaxTraceLength->value());
     if (!ui->pushButtonCalculate->isEnabled()) stop(); // Остановка расчета
 }
 

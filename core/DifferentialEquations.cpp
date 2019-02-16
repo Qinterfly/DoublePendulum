@@ -43,3 +43,4 @@ std::vector<double> DifferentialEquations::calcCartesianCoordinates(state_type c
 std::vector<double> const& DifferentialEquations::mass() const { return mass_; }
 std::vector<double> const& DifferentialEquations::length() const { return length_; }
 double const& DifferentialEquations::gravity() const { return gravity_; }
+int const& DifferentialEquations::pointNumber() const { return POINT_MASS_NUMBER; }

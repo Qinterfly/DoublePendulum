@@ -3,7 +3,7 @@
 
 // Построение положения маятника
 void MainWindow::plotPendulum(std::vector<state_type> const& solution, size_t plotInd){
-    std::vector<double> pointCartCoord = solOpt_.diffEqu().calcCartesianCoordinates(solution[plotInd]); // Получение декартовых координат маятника
+    std::vector<double> const pointCartCoord = solOpt_.diffEqu().calcCartesianCoordinates(solution[plotInd]); // Получение декартовых координат маятника
     // Первый стержень
     QVector<double> XRod1 = {0, pointCartCoord[0]};
     QVector<double> YRod1 = {0, pointCartCoord[1]};
@@ -16,28 +16,49 @@ void MainWindow::plotPendulum(std::vector<state_type> const& solution, size_t pl
     ui->plotPendulum->graph(2)->setData({pointCartCoord[0]}, {pointCartCoord[1]}); // Передача данных
     // Вторая точечная масса
     ui->plotPendulum->graph(3)->setData({pointCartCoord[2]}, {pointCartCoord[3]}); // Передача данных
-    // Следы точек
-    if (!ui->pushButtonCalculate->isEnabled()){ // Если отрисовка идет
-        if (plotInd >= traceLength_){ // Удаление первых элементов, если след достиг целевой длины
-            listTrace_[0].pop_front(); // Первая точка
-            listTrace_[1].pop_front(); // Вторая точка
-        }
-        listTrace_[0].push_back({pointCartCoord[0], pointCartCoord[1]}); // Первая точка
-        listTrace_[1].push_back({pointCartCoord[2], pointCartCoord[3]}); // Вторая точка
-        // След первой точки
-        ui->plotPendulum->graph(4)->setData(sliceTrace(0, 0), sliceTrace(0, 1));
-        // След второй точки
-        ui->plotPendulum->graph(5)->setData(sliceTrace(1, 0), sliceTrace(1, 1));
-    }
-    // Масштабирование осей
+    // След первой точки
+    addTraceData(tracePendulum_[0], pointCartCoord[0], pointCartCoord[1]);
+    // След второй точки
+    addTraceData(tracePendulum_[1], pointCartCoord[2], pointCartCoord[3]);
+    ui->plotPendulum->replot(); // Обновление окна построения
+}
+
+// Построение фазового портрета
+void MainWindow::plotPhasePortrait(size_t plotInd){
+    state_type const & tSolu = solution_[plotInd];
+    // След первой точки
+    addTraceData(tracePhasePortrait_[0], tSolu[0], tSolu[2]);
+    // След второй точки
+    addTraceData(tracePhasePortrait_[1], tSolu[1], tSolu[3]);
+    ui->plotPhasePortrait->replot(); // Обновление окна построения
+}
+
+// Установка границ отображения маятника
+void MainWindow::setPlotPendulumRange(double zoomShift = 1){
     ui->plotPendulum->rescaleAxes(true);
     double tLenSum = solOpt_.diffEqu().length()[0] + solOpt_.diffEqu().length()[1]; // Суммарная длина
     ui->plotPendulum->xAxis->setRange(-tLenSum, tLenSum); // Пределы по оси X
     ui->plotPendulum->yAxis->setRange(-tLenSum, tLenSum); // Пределы по оси Y
-    double zoomShift = 1.25; // Коэффициент отдаления
     ui->plotPendulum->xAxis->scaleRange(zoomShift, ui->plotPendulum->xAxis->range().center()); // Отдалить по оси X
     ui->plotPendulum->yAxis->scaleRange(zoomShift, ui->plotPendulum->yAxis->range().center()); // Отдалить по оси Y
-    ui->plotPendulum->replot(); // Обновление окна построения
+}
+
+// Установка границ отображения фазового потрета
+void MainWindow::setPlotPhasePortraitRange(double zoomShift = 1){
+    ui->plotPhasePortrait->rescaleAxes(true);
+    // Нахождение пределов построения
+        // По X
+    double minX = qMin(solutionMinMax_.first[0], solutionMinMax_.first[1]);
+    double maxX = qMax(solutionMinMax_.second[0], solutionMinMax_.second[1]);
+        // По Y
+    double minY = qMin(solutionMinMax_.first[2], solutionMinMax_.first[3]);
+    double maxY = qMax(solutionMinMax_.second[2], solutionMinMax_.second[3]);
+    // Выставление пределов по осям
+    ui->plotPhasePortrait->xAxis->setRange(minX, maxX); // X
+    ui->plotPhasePortrait->yAxis->setRange(minY, maxY); // Y
+    ui->plotPhasePortrait->xAxis->scaleRange(zoomShift, ui->plotPhasePortrait->xAxis->range().center()); // Отдалить по оси X
+    ui->plotPhasePortrait->yAxis->scaleRange(zoomShift, ui->plotPhasePortrait->yAxis->range().center()); // Отдалить по оси Y
+    ui->plotPhasePortrait->replot();
 }
 
 // Очистка маятника
@@ -46,26 +67,38 @@ void MainWindow::clearPendulum(){
     ui->plotPendulum->graph(1)->data()->clear(); // Второй стержень
     ui->plotPendulum->graph(2)->data()->clear(); // Первая точечная масса
     ui->plotPendulum->graph(3)->data()->clear(); // Вторая точечная масса
-    ui->plotPendulum->graph(4)->data()->clear(); // След первой массы
-    ui->plotPendulum->graph(5)->data()->clear(); // След второй массы
+    tracePendulum_[0]->data()->clear(); // След первой массы
+    tracePendulum_[1]->data()->clear(); // След второй массы
     ui->plotPendulum->rescaleAxes(false); // Масштабирование осей
     ui->plotPendulum->replot(); // Обновление окна построения
 }
 
+// Очистка фазового портрета
+void MainWindow::clearPhasePortrait(){
+    tracePhasePortrait_[0]->data()->clear(); // Первая точечная масса
+    tracePhasePortrait_[1]->data()->clear(); // Вторая точечная масса
+    ui->plotPhasePortrait->rescaleAxes(false); // Масштабирование осей
+    ui->plotPhasePortrait->replot(); // Обновление окна построения
+}
+
 // Обновление начального положения маятника
 void MainWindow::updateInitPendulum(){
-    if (ui->pushButtonCalculate->isEnabled()) // Отрисовка только при начале нового расчета
+    // Отрисовка только при начале нового расчета
+    if (ui->pushButtonCalculate->isEnabled()){
+        setPlotPendulumRange(1.5); // Границы отображения
         plotPendulum({solOpt_.initCond()}, 0);
+    }
 }
 
-// -- Вспомогательные ------------------------------------------------------------------------------------------------
+// --- Вспомогательные -----------------------------------------------------------------------------------------
 
-// Срез следа по индексам
-QVector<double> MainWindow::sliceTrace(size_t indPoint, size_t indCoord){
-    QVector<double> resCoordTrace(listTrace_[indPoint].size());
-    int iTrace = 0;
-    auto iter = listTrace_[indPoint].begin();
-    for (; iter != listTrace_[indPoint].end(); ++iTrace, ++iter)
-        resCoordTrace[iTrace] = (*iter)[indCoord];
-    return resCoordTrace;
+// Добавление данных к временному следу
+void MainWindow::addTraceData(QCPCurve * curve, double const& x, double const& y){
+    if (ui->pushButtonCalculate->isEnabled()) return; // Проверка режима отрисовки
+    // Срез данных по длине следа (pop_front)
+    if (curve->data()->size() == maxTraceLength_)
+        curve->data()->remove(curve->data()->begin()->sortKey());
+    curve->addData(x, y); // Добавление новых данных
 }
+
+

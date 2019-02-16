@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->doubleSpinBoxInitTime, SIGNAL(editingFinished()), this, SLOT(setTimeBound())); // Начальное время моделирования
     connect(ui->doubleSpinBoxEndTime, SIGNAL(editingFinished()), this, SLOT(setTimeBound()));  // Конечное время моделирования
     connect(ui->doubleSpinBoxTimeStep, SIGNAL(editingFinished()), this, SLOT(setTimeStep()));  // Временной шаг
-    connect(ui->spinBoxTraceLength, SIGNAL(editingFinished()), this, SLOT(setTraceLength()));  // Длина временного следа
+    connect(ui->spinBoxMaxTraceLength, SIGNAL(editingFinished()), this, SLOT(setMaxTraceLength()));  // Длина временного следа
     // Контроль
     connect(playBackTimer_, SIGNAL(timeout()), this, SLOT(playBackStep())); // Таймер
     connect(ui->pushButtonCalculate, SIGNAL(clicked()), this, SLOT(calculate())); // Запуск расчета

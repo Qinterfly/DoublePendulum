@@ -12,8 +12,10 @@ void MainWindow::solve(){
 // Запуск общей процедуры расчета
 void MainWindow::calculate(){
     solve(); // Решить ДУ с заданными условиями
+    findSolutionMinMax(); // Нахождение максимумов и минимумов решения
     playBackTimer_->start(); // Запуск таймера (h * 1e3)
     ui->pushButtonCalculate->setEnabled(false); // Отключение кнопки начала расчета
+    setPlotPhasePortraitRange(1.25); // Установка границ отображения фазового портрета
 }
 
 // Пауза или возобнолвение
@@ -31,8 +33,8 @@ void MainWindow::stop(){
     timeInd_ = 0; // Сброс индекса решения
     time_.clear(); // Очистка вектора времени
     solution_.clear(); // Очистка вектора решения
-    listTrace_[0].clear(); listTrace_[1].clear();// Очистка следов точек
     clearPendulum(); // Очистка маятника
+    clearPhasePortrait(); // Очистка фазового портрета
     ui->pushButtonCalculate->setEnabled(true); // Включение кнопки начала расчета
     updateInitPendulum(); // Обновление начального положения маятника
 }
@@ -40,7 +42,14 @@ void MainWindow::stop(){
 // Функция отрисовки по таймеру
 void MainWindow::playBackStep(){
     if (isPaused_) return; // Проверка паузы
-    plotPendulum(solution_, timeInd_); // Построение маятника
+    switch (ui->tabPlotWidget->currentIndex()){
+    case 0:
+        plotPendulum(solution_, timeInd_); // Построение маятника
+        break;
+    case 1:
+        plotPhasePortrait(timeInd_); // Построение фазового портрета
+        break;
+    }
     // Приращение индекса решения
     if (timeInd_ != nTime_ - 1){
         ++timeInd_;
@@ -48,3 +57,23 @@ void MainWindow::playBackStep(){
     else
         playBackTimer_->stop(); // Остановка таймера
 }
+
+// --- Вспомогательные -----------------------------------------------------------------------------------------
+
+// Нахождение максимумов и минимумов решения
+void MainWindow::findSolutionMinMax(){
+    size_t nY = solOpt_.initCond().size();
+    solutionMinMax_.first = solution_[0]; // Минимумы
+    solutionMinMax_.second = solutionMinMax_.first; // Максимумы
+    for (size_t iTime = 1; iTime != nTime_; ++iTime){
+        for (size_t jY = 0; jY != nY; ++jY){
+            // Минимумы
+            if (solution_[iTime][jY] < solutionMinMax_.first[jY])
+                solutionMinMax_.first[jY] = solution_[iTime][jY];
+            // Максимумы
+            if (solution_[iTime][jY] > solutionMinMax_.second[jY])
+                solutionMinMax_.second[jY] = solution_[iTime][jY];
+        }
+    }
+}
+

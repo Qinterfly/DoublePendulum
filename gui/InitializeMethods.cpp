@@ -27,9 +27,10 @@ void MainWindow::initializeShowParams(){
     scrollBarTimerInterval_->setMinimumWidth(180); // Минимальная ширина
     ui->statusBar->addPermanentWidget(scrollBarTimerInterval_); // Добавление в информационную строку
     setTimerInterval(); // Установка интервала таймера
-    // Временной след
-    setTraceLength(); // Выставление длины временного следа
-    listTrace_.resize(2); // След для двух точек
+    // Временные следы
+    tracePendulum_.resize(solOpt_.diffEqu().pointNumber()); // Маятника
+    tracePhasePortrait_.resize(solOpt_.diffEqu().pointNumber()); // Фазовый портрет
+    setMaxTraceLength(); // Выставление максимальной длины временного следа
 }
 
 // Инициализация всех графических окон
@@ -37,11 +38,13 @@ void MainWindow::initializeAllPlot(){
     // -- PlotPendulum --
     initializePlotPendulum(); // Графическое окно с маятником
     updateInitPendulum(); // Обновление начального положения маятника
+    // -- PlotPhasePortrait --
+    initializePhasePortrait(); // Графическое окно с фазовым портретом
 }
 
 // Инициализация окна с маятником
 void MainWindow::initializePlotPendulum(){
-    for (int i = 0; i != 6; ++i) ui->plotPendulum->addGraph(); // Добавление графиков для 2ух-стержней и 2ух-точек со следами
+    for (int i = 0; i != 4; ++i) ui->plotPendulum->addGraph(); // Добавление графиков для 2ух-стержней и 2ух-точек со следами
     ui->plotPendulum->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom); // Установить пользовательские взаимодействия (перетаскивание + масштабирование)
     // Первый стержень
     QPen rodPen;
@@ -65,17 +68,29 @@ void MainWindow::initializePlotPendulum(){
     pointScatterStyle.setBrush(QColor(Qt::blue)); // Цвет заливки
     ui->plotPendulum->graph(3)->setLineStyle(QCPGraph::lsNone); // Тип линии графика
     ui->plotPendulum->graph(3)->setScatterStyle(pointScatterStyle); // Тип точки графика
+    // Следы
+    for (int i = 0; i != tracePendulum_.size(); ++i)
+        tracePendulum_[i] = new QCPCurve(ui->plotPendulum->xAxis, ui->plotPendulum->yAxis);
     // След первой массы
-    QCPScatterStyle traceScatterStyle; // Стиль точки
-    traceScatterStyle.setShape(QCPScatterStyle::ssDisc); // Тип точки
-    traceScatterStyle.setPen(QPen(Qt::red)); // Цвет линии
-    traceScatterStyle.setBrush(QColor(Qt::red)); // Цвет заливки
-    traceScatterStyle.setSize(2); // Размер точки
-    ui->plotPendulum->graph(4)->setLineStyle(QCPGraph::lsNone); // Тип линии графика
-    ui->plotPendulum->graph(4)->setScatterStyle(traceScatterStyle); // Тип точки графика
+    QPen tracePen; // Стиль точки
+    tracePen.setColor(Qt::red); // Цвет
+    tracePendulum_[0]->setPen(tracePen); // Задание типа графика
     // След второй массы
-    traceScatterStyle.setPen(QPen(Qt::blue)); // Цвет линии
-    traceScatterStyle.setBrush(QColor(Qt::blue)); // Цвет заливки
-    ui->plotPendulum->graph(5)->setLineStyle(QCPGraph::lsNone); // Тип линии графика
-    ui->plotPendulum->graph(5)->setScatterStyle(traceScatterStyle); // Тип точки графика
+    tracePen.setColor(Qt::blue); // Цвет
+    tracePendulum_[1]->setPen(tracePen); // Задание типа графика
+}
+
+// Инициализация окна с фазовым портретом
+void MainWindow::initializePhasePortrait(){
+    ui->plotPhasePortrait->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom); // Установить пользовательские взаимодействия (перетаскивание + масштабирование)
+    // Следы
+    for (int i = 0; i != tracePhasePortrait_.size(); ++i)
+        tracePhasePortrait_[i] = new QCPCurve(ui->plotPhasePortrait->xAxis, ui->plotPhasePortrait->yAxis);
+    // След первой массы
+    QPen tracePen; // Стиль точки
+    tracePen.setColor(Qt::red); // Цвет
+    tracePhasePortrait_[0]->setPen(tracePen); // Задание типа графика
+    // След второй массы
+    tracePen.setColor(Qt::blue); // Цвет
+    tracePhasePortrait_[1]->setPen(tracePen); // Задание типа графика
 }

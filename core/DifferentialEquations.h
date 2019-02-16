@@ -15,8 +15,9 @@ struct DifferentialEquations {
     std::vector<double> const& mass() const;
     std::vector<double> const& length() const;
     double const& gravity() const;
+    int const& pointNumber() const;
 private: 
-    unsigned int const POINT_MASS_NUMBER = 2; // Число точечных масс
+    int const POINT_MASS_NUMBER = 2; // Число точечных масс
     std::vector<double> mass_;                // Массы
     std::vector<double> length_;              // Длины
     double gravity_;                          // Ускорение свободного падения

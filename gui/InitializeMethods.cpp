@@ -23,7 +23,7 @@ void MainWindow::initializeShowParams(){
     scrollBarTimerInterval_ = new QScrollBar(Qt::Horizontal);
     scrollBarTimerInterval_->setMinimum(0); // Минимальное значение
     scrollBarTimerInterval_->setMaximum(128); // Максимальное значение
-    scrollBarTimerInterval_->setValue(4); // Текущее значение
+    scrollBarTimerInterval_->setValue(8); // Текущее значение
     scrollBarTimerInterval_->setMinimumWidth(180); // Минимальная ширина
     ui->statusBar->addPermanentWidget(scrollBarTimerInterval_); // Добавление в информационную строку
     setTimerInterval(); // Установка интервала таймера

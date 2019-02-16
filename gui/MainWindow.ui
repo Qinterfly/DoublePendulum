@@ -937,7 +937,7 @@
            <number>100000</number>
           </property>
           <property name="value">
-           <number>512</number>
+           <number>256</number>
           </property>
          </widget>
         </item>

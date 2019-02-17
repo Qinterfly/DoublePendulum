@@ -16,6 +16,7 @@ void MainWindow::calculate(){
     playBackTimer_->start(); // Запуск таймера (h * 1e3)
     ui->pushButtonCalculate->setEnabled(false); // Отключение кнопки начала расчета
     setPlotPhasePortraitRange(1.25); // Установка границ отображения фазового портрета
+    setPlotPhaseAnglesRange(1.1); // Установка границ отображения фазовых углов
 }
 
 // Пауза или возобнолвение
@@ -35,6 +36,7 @@ void MainWindow::stop(){
     solution_.clear(); // Очистка вектора решения
     clearPendulum(); // Очистка маятника
     clearPhasePortrait(); // Очистка фазового портрета
+    clearPhaseAngles(); // Очистка фазовых углов
     ui->pushButtonCalculate->setEnabled(true); // Включение кнопки начала расчета
     updateInitPendulum(); // Обновление начального положения маятника
 }
@@ -49,6 +51,8 @@ void MainWindow::playBackStep(){
     case 1:
         plotPhasePortrait(timeInd_); // Построение фазового портрета
         break;
+    case 2:
+        plotPhaseAngles(timeInd_); // Построение фазовых углов
     }
     // Приращение индекса решения
     if (timeInd_ != nTime_ - 1){

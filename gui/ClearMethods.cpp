@@ -20,3 +20,10 @@ void MainWindow::clearPhasePortrait(){
     ui->plotPhasePortrait->rescaleAxes(false); // Масштабирование осей
     ui->plotPhasePortrait->replot(); // Обновление окна построения
 }
+
+// Очистка фазовых углов
+void MainWindow::clearPhaseAngles(){
+    tracePhaseAngles_->data()->clear();
+    ui->plotPhaseAngles->rescaleAxes(false); // Масштабирование осей
+    ui->plotPhaseAngles->replot(); // Обновление окна построения
+}

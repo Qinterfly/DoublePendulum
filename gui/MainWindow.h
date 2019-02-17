@@ -39,14 +39,18 @@ private:
     void initializeShowParams(); // Инициализация параметров построения
     void initializeAllPlot(); // Инициализация всех графических окон
     void initializePlotPendulum(); // Инициализация окна с маятником
-    void initializePhasePortrait(); // Инициализация окна с фазовым портретом
+    void initializePlotPhasePortrait(); // Инициализация окна с фазовым портретом
+    void initializePlotPhaseAngles(); // Инициализация окна с фазовыми углами
     void solve(); // Решить ДУ с заданными условиями
     void plotPendulum(std::vector<state_type> const& solution, size_t plotInd); // Построение положения маятника
     void plotPhasePortrait(size_t plotInd); // Построение фазового портрета
+    void plotPhaseAngles(size_t plotInd); // Построение фазовых углов
     void setPlotPendulumRange(double zoomShift); // Установка границ отображения маятника
     void setPlotPhasePortraitRange(double zoomShift); // Установка границ отображения фазового потрета
+    void setPlotPhaseAnglesRange(double zoomShift); // Установка границ отображения фазовых углов
     void clearPendulum(); // Очистка положения маятника
     void clearPhasePortrait(); // Очистка фазового портрета
+    void clearPhaseAngles(); // Очистка фазовых углов
     // Вспомогательные
     void addTraceData(QCPCurve* curve, double const& x, double const& y); // Добавление данных к временному следу
     void findSolutionMinMax(); // Нахождение максимумов и минимумов решения
@@ -65,6 +69,7 @@ private:
     int maxTraceLength_; // Максимальная длина временного следа
     QVector<QCPCurve *> tracePendulum_; // Временные следы маятника
     QVector<QCPCurve *> tracePhasePortrait_; // Временные следы на фазовом портрете
+    QCPCurve * tracePhaseAngles_; // Временной след фазовых углов
     std::pair<state_type, state_type> solutionMinMax_; // Минимумы и максимумы решения
 };
 

@@ -33,6 +33,13 @@ void MainWindow::plotPhasePortrait(size_t plotInd){
     ui->plotPhasePortrait->replot(); // Обновление окна построения
 }
 
+// Построение фазовых углов
+void MainWindow::plotPhaseAngles(size_t plotInd){
+    state_type const & tSolu = solution_[plotInd];
+    addTraceData(tracePhaseAngles_, tSolu[0], tSolu[1]); // Добавление данных к следу
+    ui->plotPhaseAngles->replot(); // Обновление окна построения
+}
+
 // --- Вспомогательные -----------------------------------------------------------------------------------------
 
 // Добавление данных к временному следу

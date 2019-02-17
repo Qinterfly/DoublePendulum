@@ -75,6 +75,28 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tabPhaseAngles">
+       <attribute name="title">
+        <string>Фазовые углы</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QCustomPlot" name="plotPhaseAngles" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -100,7 +122,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockPhysicalParamsWidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
@@ -108,7 +130,7 @@
    <property name="minimumSize">
     <size>
      <width>254</width>
-     <height>224</height>
+     <height>230</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -156,7 +178,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxMass">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -270,7 +292,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxLength">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -384,7 +406,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxGravity">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -467,12 +489,25 @@
        </layout>
       </widget>
      </item>
+     <item>
+      <spacer name="verticalSpacerPhysicalParams">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockSolutionParamsWidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
@@ -480,7 +515,7 @@
    <property name="minimumSize">
     <size>
      <width>255</width>
-     <height>291</height>
+     <height>297</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -528,7 +563,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxInitAngle">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -651,7 +686,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxInitVelocity">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -768,7 +803,7 @@
      <item>
       <widget class="QGroupBox" name="groupBoxSolutionSettings">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -986,6 +1021,19 @@
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacerSolutionParams">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>

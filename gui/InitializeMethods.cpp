@@ -39,7 +39,9 @@ void MainWindow::initializeAllPlot(){
     initializePlotPendulum(); // Графическое окно с маятником
     updateInitPendulum(); // Обновление начального положения маятника
     // -- PlotPhasePortrait --
-    initializePhasePortrait(); // Графическое окно с фазовым портретом
+    initializePlotPhasePortrait(); // Графическое окно с фазовым портретом
+    // -- PlotPhaseAngles --
+    initializePlotPhaseAngles(); // Графическое окно с фазовыми углами
 }
 
 // Инициализация окна с маятником
@@ -81,8 +83,10 @@ void MainWindow::initializePlotPendulum(){
 }
 
 // Инициализация окна с фазовым портретом
-void MainWindow::initializePhasePortrait(){
+void MainWindow::initializePlotPhasePortrait(){
     ui->plotPhasePortrait->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom); // Установить пользовательские взаимодействия (перетаскивание + масштабирование)
+    ui->plotPhasePortrait->legend->setVisible(true); // Отображение легенды
+    ui->plotPhasePortrait->legend->setFont(ui->labelInitAngle1->font()); // Шрифт
     // Следы
     for (int i = 0; i != tracePhasePortrait_.size(); ++i)
         tracePhasePortrait_[i] = new QCPCurve(ui->plotPhasePortrait->xAxis, ui->plotPhasePortrait->yAxis);
@@ -90,7 +94,21 @@ void MainWindow::initializePhasePortrait(){
     QPen tracePen; // Стиль точки
     tracePen.setColor(Qt::red); // Цвет
     tracePhasePortrait_[0]->setPen(tracePen); // Задание типа графика
+    tracePhasePortrait_[0]->setName("a1t(a1)"); // Имя графика
     // След второй массы
     tracePen.setColor(Qt::blue); // Цвет
     tracePhasePortrait_[1]->setPen(tracePen); // Задание типа графика
+    tracePhasePortrait_[1]->setName("a2t(a2)"); // Имя графика
+}
+
+// Инициализация окна с фазовым углами
+void MainWindow::initializePlotPhaseAngles(){
+    ui->plotPhaseAngles->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom); // Установить пользовательские взаимодействия (перетаскивание + масштабирование)
+    ui->plotPhaseAngles->legend->setVisible(true); // Отображение легенды
+    ui->plotPhaseAngles->legend->setFont(ui->labelInitAngle1->font()); // Шрифт
+    tracePhaseAngles_ = new QCPCurve(ui->plotPhaseAngles->xAxis, ui->plotPhaseAngles->yAxis); // След
+    QPen tracePen; // Стиль точки
+    tracePen.setColor(Qt::black); // Цвет
+    tracePhaseAngles_->setPen(tracePen); // Задание типа графика
+    tracePhaseAngles_->setName("a2(a1)"); // Имя графика
 }

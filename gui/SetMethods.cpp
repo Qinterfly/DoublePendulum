@@ -68,3 +68,14 @@ void MainWindow::setPlotPhasePortraitRange(double zoomShift = 1){
     ui->plotPhasePortrait->yAxis->scaleRange(zoomShift, ui->plotPhasePortrait->yAxis->range().center()); // Отдалить по оси Y
     ui->plotPhasePortrait->replot();
 }
+
+// Установка границ отображения фазовых углов
+void MainWindow::setPlotPhaseAnglesRange(double zoomShift){
+    ui->plotPhaseAngles->rescaleAxes(true);
+    // Выставление пределов по осям
+    ui->plotPhaseAngles->xAxis->setRange(solutionMinMax_.first[0], solutionMinMax_.second[0]); // X
+    ui->plotPhaseAngles->yAxis->setRange(solutionMinMax_.first[1], solutionMinMax_.second[1]); // Y
+    ui->plotPhaseAngles->xAxis->scaleRange(zoomShift, ui->plotPhaseAngles->xAxis->range().center()); // Отдалить по оси X
+    ui->plotPhaseAngles->yAxis->scaleRange(zoomShift, ui->plotPhaseAngles->yAxis->range().center()); // Отдалить по оси Y
+    ui->plotPhaseAngles->replot();
+}

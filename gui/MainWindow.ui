@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>924</width>
-    <height>587</height>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>DoublePendulum</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/icons/icons/app-icon.ico</normaloff>:/icons/icons/app-icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -111,14 +115,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockPhysicalParamsWidget">
    <property name="sizePolicy">
@@ -135,8 +131,8 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>255</width>
-     <height>524287</height>
+     <width>259</width>
+     <height>237</height>
     </size>
    </property>
    <property name="font">
@@ -156,7 +152,7 @@
     <set>Qt::LeftDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string> Физические параметры</string>
+    <string>  Физические параметры</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -520,7 +516,7 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>255</width>
+     <width>259</width>
      <height>524287</height>
     </size>
    </property>
@@ -541,7 +537,7 @@
     <set>Qt::LeftDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string> Параметры решения</string>
+    <string>  Параметры решения</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -1048,6 +1044,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

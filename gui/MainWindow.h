@@ -54,6 +54,8 @@ private:
     // Вспомогательные
     void addTraceData(QCPCurve* curve, double const& x, double const& y); // Добавление данных к временному следу
     void findSolutionMinMax(); // Нахождение максимумов и минимумов решения
+protected:
+    bool eventFilter(QObject * obj, QEvent * event) override; // Переопределение событий программы
 private:
     Ui::MainWindow *ui;
     SolutionOptions solOpt_; // Опции решения
@@ -64,6 +66,7 @@ private:
     QTimer* playBackTimer_; // Таймер
     QScrollBar* scrollBarTimerInterval_; // Интервал срабатывания таймера
     QLabel* labelTimeInterval_; // Метка интервала срабатывания
+    QLabel* labelCurrentTime_; // Текущее время
     bool isPaused_ = false; // Флаг паузы
     size_t timeInd_ = 0; // Индекс решения
     int maxTraceLength_; // Максимальная длина временного следа

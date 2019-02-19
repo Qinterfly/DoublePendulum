@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initializeSolutionOptions(); // Инициализация параметров решения
     initializeShowParams(); // Инициализация параметров построения
     initializeAllPlot(); // Инициализация всех графических окон
+    this->installEventFilter(this); // События главного окна
 
     // Сигналы - слоты
     // Физические параметры

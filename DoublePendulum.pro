@@ -48,6 +48,11 @@ HEADERS += \
 FORMS += \
         gui/MainWindow.ui
 
+RESOURCES += \
+    gui/resource.qrc
+
+win32:RC_ICONS += $$PWD/gui/icons/app-icon.ico # Иконка к проекту
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -63,3 +68,9 @@ else:unix:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lqcustomplotd
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
+
+# Библиотека Boost
+win32:INCLUDEPATH += C:/boost/boost_mingw_730_64/include/boost-1_69
+win32:DEPENDPATH += C:/boost/boost_mingw_730_64/include/boost-1_69
+
+

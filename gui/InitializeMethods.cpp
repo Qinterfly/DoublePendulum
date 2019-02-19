@@ -27,6 +27,10 @@ void MainWindow::initializeShowParams(){
     scrollBarTimerInterval_->setMinimumWidth(180); // Минимальная ширина
     ui->statusBar->addPermanentWidget(scrollBarTimerInterval_); // Добавление в информационную строку
     setTimerInterval(); // Установка интервала таймера
+    // Текущее время моделирования
+   labelCurrentTime_ = new QLabel();
+   labelCurrentTime_->setText("Время: 0");
+   ui->statusBar->addWidget(labelCurrentTime_);
     // Временные следы
     tracePendulum_.resize(solOpt_.diffEqu().pointNumber()); // Маятника
     tracePhasePortrait_.resize(solOpt_.diffEqu().pointNumber()); // Фазовый портрет

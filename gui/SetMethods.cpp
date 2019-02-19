@@ -79,3 +79,35 @@ void MainWindow::setPlotPhaseAnglesRange(double zoomShift){
     ui->plotPhaseAngles->yAxis->scaleRange(zoomShift, ui->plotPhaseAngles->yAxis->range().center()); // Отдалить по оси Y
     ui->plotPhaseAngles->replot();
 }
+
+// Переопределение событий программы
+bool MainWindow::eventFilter(QObject * obj, QEvent * event){
+    // Параметры размеров
+    static const float RELATIVE_WIDTH_DOCK = 0.28f;
+    static const float RELATIVE_WIDTH_MAINWINDOW = 0.4813f;
+    static const float RELATIVE_HEIGHT_MAINWINDOW = 0.5546f;
+    // В случае изменения размера
+    if (event->type() == QEvent::Resize){
+        QResizeEvent * resizeEvent = static_cast<QResizeEvent*>(event); // Событие
+        // Для главного окна
+        if (obj == this){
+            // При инициализации окна
+            if (resizeEvent->oldSize().width() == -1){
+                QRect screenGeometry = QApplication::primaryScreen()->geometry(); // Параметры текущего монитора
+                QRect winGeometry = this->geometry(); // Геометрия старого окна
+                // Установка параметров окна с учетом разрешения монитора
+                    // Размеры
+                winGeometry.setWidth(qRound(screenGeometry.width() * RELATIVE_WIDTH_MAINWINDOW));
+                winGeometry.setHeight(qRound(screenGeometry.height() * RELATIVE_HEIGHT_MAINWINDOW));
+                this->setGeometry(winGeometry); // Установка геометрии
+                this->move(qRound((screenGeometry.width() - winGeometry.width()) / 2.0), // Позиция по центру
+                           qRound((screenGeometry.height() - winGeometry.height()) / 2.0));
+            }
+            // Установка процентного максимума от ширины окна для левой панели
+            int leftPanelMaxWidth = qRound(this->width() * RELATIVE_WIDTH_DOCK);
+            ui->dockPhysicalParamsWidget->setMaximumWidth(leftPanelMaxWidth); // Физические параметры
+            ui->dockSolutionParamsWidget->setMaximumWidth(leftPanelMaxWidth); // Свойства решения
+        }
+    }
+    return QObject::eventFilter(obj, event); // Стандартная обработка событий
+}

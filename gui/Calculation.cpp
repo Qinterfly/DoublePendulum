@@ -37,6 +37,7 @@ void MainWindow::stop(){
     clearPendulum(); // Очистка маятника
     clearPhasePortrait(); // Очистка фазового портрета
     clearPhaseAngles(); // Очистка фазовых углов
+    labelCurrentTime_->setText("Время: 0"); // Сброс индикатора времени
     ui->pushButtonCalculate->setEnabled(true); // Включение кнопки начала расчета
     updateInitPendulum(); // Обновление начального положения маятника
 }
@@ -54,6 +55,7 @@ void MainWindow::playBackStep(){
     case 2:
         plotPhaseAngles(timeInd_); // Построение фазовых углов
     }
+    labelCurrentTime_->setText("Время: " + QString::number(time_[timeInd_])); // Сброс индикатора времени
     // Приращение индекса решения
     if (timeInd_ != nTime_ - 1){
         ++timeInd_;

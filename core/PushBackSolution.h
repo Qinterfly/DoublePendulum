@@ -1,7 +1,6 @@
 #ifndef PUSHBACKSOLUTION_H
 #define PUSHBACKSOLUTION_H
 
-#include <QVector>
 #include "core/Macroses.h"
 
 // Заполнение контейнеров решения

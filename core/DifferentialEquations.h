@@ -1,7 +1,6 @@
 #ifndef DIFFERENTIALEQUATIONS_H
 #define DIFFERENTIALEQUATIONS_H
 
-#include <QtMath>
 #include "core/Macroses.h"
 
 // Дифференциальные уравнения (функтор)

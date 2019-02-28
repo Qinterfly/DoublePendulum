@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <list>
 #include "include/QCustomPlot.h"
 #include "core/SolutionOptions.h"
 #include "core/PushBackSolution.h"

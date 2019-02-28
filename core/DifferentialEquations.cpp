@@ -1,3 +1,4 @@
+#include <QtMath>
 #include "core/DifferentialEquations.h"
 
 // Конструктор по умолчанию

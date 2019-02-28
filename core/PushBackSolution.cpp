@@ -1,3 +1,4 @@
+#include <QVector>
 #include "core/PushBackSolution.h"
 
 // Получение ссылок на контейнеры

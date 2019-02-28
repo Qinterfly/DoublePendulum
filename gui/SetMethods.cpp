@@ -84,6 +84,7 @@ void MainWindow::setPlotPhaseAnglesRange(double zoomShift){
 bool MainWindow::eventFilter(QObject * obj, QEvent * event){
     // Параметры размеров
     static const float RELATIVE_WIDTH_DOCK = 0.28f;
+    static const float RELATIVE_HEIGHT_DOCK = 0.2398f;
     static const float RELATIVE_WIDTH_MAINWINDOW = 0.4813f;
     static const float RELATIVE_HEIGHT_MAINWINDOW = 0.5546f;
     // В случае изменения размера
@@ -107,6 +108,9 @@ bool MainWindow::eventFilter(QObject * obj, QEvent * event){
             int leftPanelMaxWidth = qRound(this->width() * RELATIVE_WIDTH_DOCK);
             ui->dockPhysicalParamsWidget->setMaximumWidth(leftPanelMaxWidth); // Физические параметры
             ui->dockSolutionParamsWidget->setMaximumWidth(leftPanelMaxWidth); // Свойства решения
+            // Установка процентного максимума от высоты для физических параметров
+            int leftPanelMaxHeight = qRound(this->height() * RELATIVE_HEIGHT_DOCK);
+            ui->dockPhysicalParamsWidget->setMaximumHeight(leftPanelMaxHeight); // Физические параметры
         }
     }
     return QObject::eventFilter(obj, event); // Стандартная обработка событий
